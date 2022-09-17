@@ -2,6 +2,7 @@ import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
 import { ADD_COMMENT } from "../../constants/actionTypes";
+import { imgFallback } from "../../helpers/imgFallback";
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (payload) => dispatch({ type: ADD_COMMENT, payload }),
@@ -42,7 +43,7 @@ class CommentInput extends React.Component {
         </div>
         <div className="card-footer">
           <img
-            src={this.props.currentUser.image}
+            src={imgFallback(this.props.currentUser.image, "/smiley.jpg")}
             className="user-pic mr-2"
             alt={this.props.currentUser.username}
           />
