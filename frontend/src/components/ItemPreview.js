@@ -38,7 +38,7 @@ const ItemPreview = (props) => {
       <Link to={`/item/${item.slug}`}>
         <img
           alt="item"
-          src={imgFallback(item.image, '/placeholder.png')}
+          src={imgFallback(item.image, "/placeholder.png")}
           className="card-img-top item-img"
           style={{ borderRadius: "20px" }}
         />

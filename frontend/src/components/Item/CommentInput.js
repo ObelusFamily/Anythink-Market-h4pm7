@@ -43,7 +43,7 @@ class CommentInput extends React.Component {
         </div>
         <div className="card-footer">
           <img
-            src={imgFallback(this.props.currentUser.image, '/smiley.jpg')}
+            src={imgFallback(this.props.currentUser.image, "/smiley.jpg")}
             className="user-pic mr-2"
             alt={this.props.currentUser.username}
           />

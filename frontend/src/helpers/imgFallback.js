@@ -1,4 +1,4 @@
 export const imgFallback = (img, fallback) => {
-    if(!img) return fallback;
-    return img;
-}
+  if (!img) return fallback;
+  return img;
+};
