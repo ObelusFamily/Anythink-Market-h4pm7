@@ -54,7 +54,7 @@ class Item extends React.Component {
               <img
                 onError={handleImg404(placeholder)}
                 src={this.props.item.image}
-                alt={this.props.item.title}
+                alt=""
                 className="item-img"
                 style={{ height: "500px", width: "100%", borderRadius: "6px" }}
               />

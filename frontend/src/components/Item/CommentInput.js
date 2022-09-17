@@ -47,6 +47,7 @@ class CommentInput extends React.Component {
             onError={handleImg404(smiley)}
             src={this.props.currentUser.image || ""}
             className="user-pic mr-2"
+            alt=""
           />
           <button className="btn btn-sm btn-primary" type="submit">
             Post Comment
