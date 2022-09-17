@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../imgs/topbar_logo.png";
+import { handleImg404 } from "../helpers/handleImg404";
+import smiley from '../imgs/smiley.jpg';
 
 const LoggedOutView = (props) => {
   if (!props.currentUser) {
@@ -42,9 +44,9 @@ const LoggedInView = (props) => {
         <li className="nav-item">
           <Link to={`/@${props.currentUser.username}`} className="nav-link">
             <img
-              src={props.currentUser.image}
+              onError={handleImg404(smiley)}
+              src={props.currentUser.image || ""}
               className="user-pic pr-1"
-              alt={props.currentUser.username}
             />
             {props.currentUser.username}
           </Link>

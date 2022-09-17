@@ -2,6 +2,8 @@ import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
 import { ADD_COMMENT } from "../../constants/actionTypes";
+import { handleImg404 } from "../../helpers/handleImg404";
+import smiley from '../../imgs/smiley.jpg';
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (payload) => dispatch({ type: ADD_COMMENT, payload }),
@@ -42,9 +44,9 @@ class CommentInput extends React.Component {
         </div>
         <div className="card-footer">
           <img
-            src={this.props.currentUser.image}
+            onError={handleImg404(smiley)}
+            src={this.props.currentUser.image || ""}
             className="user-pic mr-2"
-            alt={this.props.currentUser.username}
           />
           <button className="btn btn-sm btn-primary" type="submit">
             Post Comment
