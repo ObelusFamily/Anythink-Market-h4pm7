@@ -8,8 +8,7 @@ import {
   ITEM_PAGE_LOADED,
   ITEM_PAGE_UNLOADED,
 } from "../../constants/actionTypes";
-import { handleImg404 } from "../../helpers/handleImg404";
-import placeholder from '../../imgs/placeholder.png'
+import { imgFallback } from "../../helpers/imgFallback";
 
 const mapStateToProps = (state) => ({
   ...state.item,
@@ -52,9 +51,8 @@ class Item extends React.Component {
           <div className="row bg-white p-4">
             <div className="col-6">
               <img
-                onError={handleImg404(placeholder)}
-                src={this.props.item.image}
-                alt=""
+                src={imgFallback(this.props.item.image, '/placeholder.png')}
+                alt={this.props.item.title}
                 className="item-img"
                 style={{ height: "500px", width: "100%", borderRadius: "6px" }}
               />

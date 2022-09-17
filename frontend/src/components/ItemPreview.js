@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import agent from "../agent";
 import { connect } from "react-redux";
 import { ITEM_FAVORITED, ITEM_UNFAVORITED } from "../constants/actionTypes";
-import { handleImg404 } from "../helpers/handleImg404";
-import placeholder from '../imgs/placeholder.png'
+import { imgFallback } from "../helpers/imgFallback";
 
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) =>
@@ -36,11 +35,10 @@ const ItemPreview = (props) => {
       className="card bg-dark border-light p-3"
       style={{ borderRadius: "20px" }}
     >
-       <Link to={`/item/${item.slug}`} >
+      <Link to={`/item/${item.slug}`}>
         <img
-          onError={handleImg404(placeholder)}
           alt="item"
-          src={item.image || ""}
+          src={imgFallback(item.image, '/placeholder.png')}
           className="card-img-top item-img"
           style={{ borderRadius: "20px" }}
         />
@@ -49,7 +47,7 @@ const ItemPreview = (props) => {
         <Link to={`/item/${item.slug}`} className="text-white">
           <h3 className="card-title">{item.title}</h3>
           <p className="card-text crop-text-3">{item.description}</p>
-          </Link>
+        </Link>
         <div className="d-flex flex-row align-items-center pt-2">
           <Link to={`/@${item.seller.username}`} className="flex-grow-1">
             <img
