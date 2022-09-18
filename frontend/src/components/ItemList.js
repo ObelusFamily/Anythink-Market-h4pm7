@@ -9,9 +9,17 @@ const ItemList = (props) => {
 
   if (props.items.length === 0) {
     if (props.search.length >= 3) {
-      return <div id="empty" className="py-4 no-items">No items found for "{props.search}".</div>;
+      return (
+        <div id="empty" className="py-4 no-items">
+          No items found for "{props.search}".
+        </div>
+      );
     }
-    return <div id="empty" className="py-4 no-items">No items are here... yet.</div>;
+    return (
+      <div id="empty" className="py-4 no-items">
+        No items are here... yet.
+      </div>
+    );
   }
 
   return (

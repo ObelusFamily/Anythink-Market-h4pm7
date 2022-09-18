@@ -11,8 +11,7 @@ const isAll = (value, isSearching) => value.length === 2 && isSearching;
 const mapDispatchToProps = (dispatch) => ({
   onSearch: (tab, pager, payload) =>
     dispatch({ type: SEARCH_ITEMS, tab, pager, payload }),
-  onChange: (value) =>
-    dispatch({ type: UPDATE_SEARCH, value }),
+  onChange: (value) => dispatch({ type: UPDATE_SEARCH, value }),
 });
 
 const mapStateToProps = (state) => ({
@@ -21,7 +20,6 @@ const mapStateToProps = (state) => ({
 });
 
 const Banner = ({ tab, search, onSearch, onChange }) => {
-
   const [isSearching, setSearching] = useState(false);
 
   const handleSearchChange = (event) => {
