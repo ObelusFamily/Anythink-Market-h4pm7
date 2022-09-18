@@ -1,31 +1,30 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState } from "react";
 import agent from "../../agent";
 import logo from "../../imgs/logo.png";
 import { connect } from "react-redux";
-import { CHANGE_TAB } from "../../constants/actionTypes";
+import { UPDATE_SEARCH, SEARCH_ITEMS } from "../../constants/actionTypes";
 
 const isFilter = (value) => value.length >= 3;
 const isAll = (value, isSearching) => value.length === 2 && isSearching;
 
 const mapDispatchToProps = (dispatch) => ({
   onSearch: (tab, pager, payload) =>
-    dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+    dispatch({ type: SEARCH_ITEMS, tab, pager, payload }),
+  onChange: (value) => dispatch({ type: UPDATE_SEARCH, value }),
 });
 
 const mapStateToProps = (state) => ({
   tab: state.itemList?.tab,
+  search: state.search,
 });
 
-const Banner = ({ tab, onSearch }) => {
-  const [search, setSearch] = useState("");
+const Banner = ({ tab, search, onSearch, onChange }) => {
   const [isSearching, setSearching] = useState(false);
-  useEffect(() => {
-    setSearch("");
-  }, [tab]);
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
-    setSearch(event.target.value);
+    onChange(event.target.value);
 
     if (isAll(value, isSearching)) {
       onSearch(tab, agent.Items.all, agent.Items.all());
