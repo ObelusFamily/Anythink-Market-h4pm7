@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  tab: state.itemList.tab
+  tab: state.itemList?.tab
 });
 
 const Banner = ({ tab, onSearch }) => {
