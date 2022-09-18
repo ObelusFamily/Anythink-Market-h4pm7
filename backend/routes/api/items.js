@@ -5,6 +5,7 @@ var Comment = mongoose.model("Comment");
 var User = mongoose.model("User");
 var auth = require("../auth");
 const { sendEvent } = require("../../lib/event");
+const { applyFallback } = require("../helpers/applyFallback");
 
 // Preload item objects on routes with ':item'
 router.param("item", function(req, res, next, slug) {
@@ -87,7 +88,7 @@ router.get("/", auth.optional, function(req, res, next) {
           items: await Promise.all(
             items.map(async function(item) {
               item.seller = await User.findById(item.seller);
-              return item.toJSONFor(user);
+              return applyFallback(item.toJSONFor(user));
             })
           ),
           itemsCount: itemsCount
@@ -128,7 +129,7 @@ router.get("/feed", auth.required, function(req, res, next) {
 
         return res.json({
           items: items.map(function(item) {
-            return item.toJSONFor(user);
+            return applyFallback(item.toJSONFor(user));
           }),
           itemsCount: itemsCount
         });
@@ -150,7 +151,7 @@ router.post("/", auth.required, function(req, res, next) {
 
       return item.save().then(function() {
         sendEvent('item_created', { item: req.body.item })
-        return res.json({ item: item.toJSONFor(user) });
+        return res.json({ item: applyFallback(item.toJSONFor(user)) });
       });
     })
     .catch(next);
@@ -165,7 +166,7 @@ router.get("/:item", auth.optional, function(req, res, next) {
     .then(function(results) {
       var user = results[0];
 
-      return res.json({ item: req.item.toJSONFor(user) });
+      return res.json({ item: applyFallback(req.item.toJSONFor(user))});
     })
     .catch(next);
 });
@@ -193,7 +194,7 @@ router.put("/:item", auth.required, function(req, res, next) {
       req.item
         .save()
         .then(function(item) {
-          return res.json({ item: item.toJSONFor(user) });
+          return res.json({ item: applyFallback(item.toJSONFor(user)) });
         })
         .catch(next);
     } else {
@@ -233,7 +234,7 @@ router.post("/:item/favorite", auth.required, function(req, res, next) {
 
       return user.favorite(itemId).then(function() {
         return req.item.updateFavoriteCount().then(function(item) {
-          return res.json({ item: item.toJSONFor(user) });
+          return res.json({ item: applyFallback(item.toJSONFor(user)) });
         });
       });
     })
@@ -252,7 +253,7 @@ router.delete("/:item/favorite", auth.required, function(req, res, next) {
 
       return user.unfavorite(itemId).then(function() {
         return req.item.updateFavoriteCount().then(function(item) {
-          return res.json({ item: item.toJSONFor(user) });
+          return res.json({ item: applyFallback(item.toJSONFor(user)) });
         });
       });
     })
